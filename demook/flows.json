@@ -1,0 +1,581 @@
+[
+    {
+        "id": "2f0fd9fea8310636",
+        "type": "tab",
+        "label": "ESP32_IOT_Controller",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "dd1c68a4f7f50d2e",
+        "type": "mqtt in",
+        "z": "2f0fd9fea8310636",
+        "name": "Temperature",
+        "topic": "iot/state/temperature",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "a20af35ee38799ba",
+        "inputs": 0,
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "dd53377909486687"
+            ]
+        ]
+    },
+    {
+        "id": "dd53377909486687",
+        "type": "function",
+        "z": "2f0fd9fea8310636",
+        "name": "Process Temperature",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 100,
+        "wires": [
+            [
+                "e719e62dcfcf8d02"
+            ]
+        ]
+    },
+    {
+        "id": "e719e62dcfcf8d02",
+        "type": "ui_gauge",
+        "z": "2f0fd9fea8310636",
+        "name": "Temperature",
+        "group": "d8dcf0de87bfc569",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gauge",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 480,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "2cd6cd073f7d8655",
+        "type": "mqtt in",
+        "z": "2f0fd9fea8310636",
+        "name": "Humidity",
+        "topic": "iot/state/humidity",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "a20af35ee38799ba",
+        "inputs": 0,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "f8dba972ab08af6d"
+            ]
+        ]
+    },
+    {
+        "id": "f8dba972ab08af6d",
+        "type": "function",
+        "z": "2f0fd9fea8310636",
+        "name": "Process Humidity",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "a1df0bd62ed6f415"
+            ]
+        ]
+    },
+    {
+        "id": "a1df0bd62ed6f415",
+        "type": "ui_gauge",
+        "z": "2f0fd9fea8310636",
+        "name": "Humidity",
+        "group": "d8dcf0de87bfc569",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gauge",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 480,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "48aed4492de89032",
+        "type": "mqtt in",
+        "z": "2f0fd9fea8310636",
+        "name": "Pressure",
+        "topic": "iot/state/pressure",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "a20af35ee38799ba",
+        "inputs": 0,
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "7288df7198506fcd"
+            ]
+        ]
+    },
+    {
+        "id": "7288df7198506fcd",
+        "type": "function",
+        "z": "2f0fd9fea8310636",
+        "name": "Process Pressure",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 220,
+        "wires": [
+            [
+                "4131e9fac9654c1b"
+            ]
+        ]
+    },
+    {
+        "id": "4131e9fac9654c1b",
+        "type": "ui_gauge",
+        "z": "2f0fd9fea8310636",
+        "name": "Pressure",
+        "group": "d8dcf0de87bfc569",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gauge",
+        "title": "Pressure",
+        "label": "hPa",
+        "format": "{{value}}",
+        "min": "900",
+        "max": "1100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 480,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "88af75c669e8c913",
+        "type": "mqtt in",
+        "z": "2f0fd9fea8310636",
+        "name": "Altitude",
+        "topic": "iot/state/altitude",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "a20af35ee38799ba",
+        "inputs": 0,
+        "x": 120,
+        "y": 280,
+        "wires": [
+            [
+                "236850aec9b4789d"
+            ]
+        ]
+    },
+    {
+        "id": "236850aec9b4789d",
+        "type": "function",
+        "z": "2f0fd9fea8310636",
+        "name": "Process Altitude",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 280,
+        "wires": [
+            [
+                "3db0a7b6aee35e87"
+            ]
+        ]
+    },
+    {
+        "id": "3db0a7b6aee35e87",
+        "type": "ui_gauge",
+        "z": "2f0fd9fea8310636",
+        "name": "Altitude",
+        "group": "d8dcf0de87bfc569",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gauge",
+        "title": "Altitude",
+        "label": "m",
+        "format": "{{value}}",
+        "min": "-100",
+        "max": "1000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 480,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "afdbbbaa7c4794f1",
+        "type": "mqtt in",
+        "z": "2f0fd9fea8310636",
+        "name": "Mode State",
+        "topic": "iot/state/mode",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "a20af35ee38799ba",
+        "inputs": 0,
+        "x": 120,
+        "y": 340,
+        "wires": [
+            [
+                "584663cdc5e22652"
+            ]
+        ]
+    },
+    {
+        "id": "584663cdc5e22652",
+        "type": "ui_switch",
+        "z": "2f0fd9fea8310636",
+        "name": "Mode",
+        "label": "Mode",
+        "tooltip": "",
+        "group": "bac24be7f346b2ce",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "iot/control/mode",
+        "topicType": "str",
+        "x": 300,
+        "y": 340,
+        "wires": [
+            [
+                "3469f22a0f924fb1"
+            ]
+        ]
+    },
+    {
+        "id": "3469f22a0f924fb1",
+        "type": "mqtt out",
+        "z": "2f0fd9fea8310636",
+        "name": "",
+        "topic": "iot/control/mode",
+        "qos": "2",
+        "retain": "false",
+        "broker": "a20af35ee38799ba",
+        "x": 480,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ef7a75d301fbb327",
+        "type": "mqtt in",
+        "z": "2f0fd9fea8310636",
+        "name": "Heater State",
+        "topic": "iot/state/device1",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "a20af35ee38799ba",
+        "inputs": 0,
+        "x": 120,
+        "y": 400,
+        "wires": [
+            [
+                "bdc032b0b7668873"
+            ]
+        ]
+    },
+    {
+        "id": "bdc032b0b7668873",
+        "type": "ui_switch",
+        "z": "2f0fd9fea8310636",
+        "name": "Heater",
+        "label": "Heater",
+        "tooltip": "",
+        "group": "bac24be7f346b2ce",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "iot/control/device1",
+        "topicType": "str",
+        "x": 300,
+        "y": 400,
+        "wires": [
+            [
+                "50a09a6be3882a47"
+            ]
+        ]
+    },
+    {
+        "id": "50a09a6be3882a47",
+        "type": "mqtt out",
+        "z": "2f0fd9fea8310636",
+        "name": "",
+        "topic": "iot/control/device1",
+        "qos": "2",
+        "retain": "false",
+        "broker": "a20af35ee38799ba",
+        "x": 480,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "692e59b9fee2c29e",
+        "type": "mqtt in",
+        "z": "2f0fd9fea8310636",
+        "name": "Humidifier State",
+        "topic": "iot/state/device2",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "a20af35ee38799ba",
+        "inputs": 0,
+        "x": 120,
+        "y": 460,
+        "wires": [
+            [
+                "80eb9dc08fa7367d"
+            ]
+        ]
+    },
+    {
+        "id": "80eb9dc08fa7367d",
+        "type": "ui_switch",
+        "z": "2f0fd9fea8310636",
+        "name": "Humidifier",
+        "label": "Humidifier",
+        "tooltip": "",
+        "group": "bac24be7f346b2ce",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "iot/control/device2",
+        "topicType": "str",
+        "x": 300,
+        "y": 460,
+        "wires": [
+            [
+                "5a949617c7737e73"
+            ]
+        ]
+    },
+    {
+        "id": "5a949617c7737e73",
+        "type": "mqtt out",
+        "z": "2f0fd9fea8310636",
+        "name": "",
+        "topic": "iot/control/device2",
+        "qos": "2",
+        "retain": "false",
+        "broker": "a20af35ee38799ba",
+        "x": 480,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "95072d96feeea438",
+        "type": "mqtt in",
+        "z": "2f0fd9fea8310636",
+        "name": "Temp Threshold",
+        "topic": "iot/state/temp_threshold",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "a20af35ee38799ba",
+        "inputs": 0,
+        "x": 120,
+        "y": 520,
+        "wires": [
+            [
+                "d33eb92211c4fa48"
+            ]
+        ]
+    },
+    {
+        "id": "d33eb92211c4fa48",
+        "type": "ui_numeric",
+        "z": "2f0fd9fea8310636",
+        "name": "Temp Threshold",
+        "label": "Temp Threshold",
+        "tooltip": "",
+        "group": "bac24be7f346b2ce",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "iot/control/temp_threshold",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "50",
+        "step": "1",
+        "x": 300,
+        "y": 520,
+        "wires": [
+            [
+                "a9e64c2b26da16d1"
+            ]
+        ]
+    },
+    {
+        "id": "a9e64c2b26da16d1",
+        "type": "mqtt out",
+        "z": "2f0fd9fea8310636",
+        "name": "",
+        "topic": "iot/control/temp_threshold",
+        "qos": "2",
+        "retain": "false",
+        "broker": "a20af35ee38799ba",
+        "x": 480,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "b155fc34fbf23393",
+        "type": "mqtt in",
+        "z": "2f0fd9fea8310636",
+        "name": "Humi Threshold",
+        "topic": "iot/state/humi_threshold",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "a20af35ee38799ba",
+        "inputs": 0,
+        "x": 120,
+        "y": 580,
+        "wires": [
+            [
+                "7eddddb032700580"
+            ]
+        ]
+    },
+    {
+        "id": "7eddddb032700580",
+        "type": "ui_numeric",
+        "z": "2f0fd9fea8310636",
+        "name": "Humi Threshold",
+        "label": "Humi Threshold",
+        "tooltip": "",
+        "group": "bac24be7f346b2ce",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "iot/control/humi_threshold",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "step": "1",
+        "x": 300,
+        "y": 580,
+        "wires": [
+            [
+                "634bef62b7b611d9"
+            ]
+        ]
+    },
+    {
+        "id": "634bef62b7b611d9",
+        "type": "mqtt out",
+        "z": "2f0fd9fea8310636",
+        "name": "",
+        "topic": "iot/control/humi_threshold",
+        "qos": "2",
+        "retain": "false",
+        "broker": "a20af35ee38799ba",
+        "x": 480,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "a20af35ee38799ba",
+        "type": "mqtt-broker",
+        "name": "MQTT Broker",
+        "broker": "192.168.1.12",
+        "port": "1883",
+        "clientid": "node-red-client",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "d8dcf0de87bfc569",
+        "type": "ui_group",
+        "name": "Sensor Data",
+        "tab": "8eb53c2d60d0f744",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "bac24be7f346b2ce",
+        "type": "ui_group",
+        "name": "Control",
+        "tab": "8eb53c2d60d0f744",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "8eb53c2d60d0f744",
+        "type": "ui_tab",
+        "name": "ESP32 IOT Controller",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
