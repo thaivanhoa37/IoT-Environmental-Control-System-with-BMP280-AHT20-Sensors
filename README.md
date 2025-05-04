@@ -151,30 +151,3 @@ Paste the JSON flow below:
 ]
 ⚠️ Replace the broker IP address (192.168.1.100) with your actual MQTT broker IP.
 
-5. MQTT Topics
-From ESP32 (Sensor Data):
-iot/state/temperature – Current temperature
-
-iot/state/humidity – Current humidity
-
-iot/state/pressure – Current pressure
-
-iot/state/altitude – Calculated altitude
-
-iot/state/mode – Current control mode (AUTO/MANUAL)
-
-iot/state/device1 – Heater status (ON/OFF)
-
-iot/state/device2 – Humidifier status (ON/OFF)
-
-From Node-RED (Control Commands):
-iot/control/mode – Change control mode (AUTO/MANUAL)
-
-iot/control/device1 – Turn ON/OFF Heater
-
-iot/control/device2 – Turn ON/OFF Humidifier
-
-iot/control/temp_threshold – Set temperature threshold
-
-iot/control/humi_threshold – Set humidity threshold
-
