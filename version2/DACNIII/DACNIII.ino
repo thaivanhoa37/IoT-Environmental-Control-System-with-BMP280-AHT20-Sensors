@@ -42,11 +42,11 @@ bool ahtInitialized = false;
 bool oledInitialized = false;
 
 // Định nghĩa chân
-#define BUTTON_MODE 16
-#define BUTTON_DEVICE1 17
-#define BUTTON_DEVICE2 18
-#define DEVICE1_PIN 26 // Relay điều khiển lò sưởi (heater)
-#define DEVICE2_PIN 27 // Relay điều khiển máy tạo ẩm (humidifier)
+#define BUTTON_MODE 25
+#define BUTTON_DEVICE1 26
+#define BUTTON_DEVICE2 27
+#define DEVICE1_PIN 18 // Relay điều khiển lò sưởi (heater)
+#define DEVICE2_PIN 19 // Relay điều khiển máy tạo ẩm (humidifier)
 
 // Cấu hình EEPROM
 #define EEPROM_SIZE 512
@@ -60,7 +60,7 @@ AsyncWebServer server(80);
 // Thông tin WiFi và MQTT
 char ssid[32] = "vanhoa";
 char password[32] = "11111111";
-char mqtt_server[32] = "192.168.137.145"; // Cập nhật địa chỉ MQTT broker theo Node-RED
+char mqtt_server[32] = "192.168.137.241"; // Cập nhật địa chỉ MQTT broker theo Node-RED
 const int mqtt_port = 1883;
 const char* mqtt_client_id = "ESP32_IOT_Controller";
 
