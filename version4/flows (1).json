@@ -2,16 +2,16 @@
     {
         "id": "43864d688cbfec00",
         "type": "tab",
-        "label": "Node1_Controller",
+        "label": "ESP32_IOT_Controller",
         "disabled": false,
-        "info": "Luồng điều khiển và giám sát thiết bị IoT Node1"
+        "info": "Luồng điều khiển và giám sát thiết bị IoT ESP32"
     },
     {
         "id": "08330ce4c6000f5f",
         "type": "mqtt in",
         "z": "43864d688cbfec00",
         "name": "Nhiệt độ",
-        "topic": "node1/state/temperature",
+        "topic": "esp32/sensor/temperature",
         "qos": "2",
         "datatype": "auto",
         "broker": "6df0540f12236ba5",
