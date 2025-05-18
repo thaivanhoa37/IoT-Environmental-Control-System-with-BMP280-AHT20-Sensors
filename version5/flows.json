@@ -1,0 +1,131 @@
+[
+    {
+        "id": "ab822071cec3f461",
+        "type": "tab",
+        "label": "ESP32 Environment Control",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ws_listener",
+        "type": "websocket-listener",
+        "path": "/mqtt",
+        "wholemsg": "true"
+    },
+    {
+        "id": "mqtt_broker",
+        "type": "mqtt-broker",
+        "name": "MQTT Broker",
+        "broker": "192.168.137.241",
+        "port": "1883",
+        "clientid": "node-red",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "websocket_in",
+        "type": "websocket in",
+        "z": "ab822071cec3f461",
+        "name": "Web Controls",
+        "server": "ws_listener",
+        "client": "",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            ["command_parser"]
+        ]
+    },
+    {
+        "id": "command_parser",
+        "type": "function",
+        "z": "ab822071cec3f461",
+        "name": "Parse Command",
+        "func": "try {\n    const data = JSON.parse(msg.payload);\n    if (data.topic && data.payload) {\n        return [{\n            topic: data.topic,\n            payload: data.payload,\n            retain: true\n        }];\n    }\n} catch(e) {\n    node.error('Parse error: ' + e.message);\n}\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 280,
+        "y": 60,
+        "wires": [
+            ["mqtt_out", "debug"]
+        ]
+    },
+    {
+        "id": "mqtt_out",
+        "type": "mqtt out",
+        "z": "ab822071cec3f461",
+        "name": "To Devices",
+        "topic": "",
+        "qos": "1",
+        "retain": "true",
+        "broker": "mqtt_broker",
+        "x": 460,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "mqtt_in",
+        "type": "mqtt in",
+        "z": "ab822071cec3f461",
+        "name": "Device States",
+        "topic": "esp32/+/state",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "x": 100,
+        "y": 120,
+        "wires": [
+            ["state_handler"]
+        ]
+    },
+    {
+        "id": "state_handler",
+        "type": "function",
+        "z": "ab822071cec3f461",
+        "name": "Format State",
+        "func": "return {\n    payload: JSON.stringify({\n        topic: msg.topic,\n        payload: msg.payload\n    })\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 280,
+        "y": 120,
+        "wires": [
+            ["websocket_out", "debug"]
+        ]
+    },
+    {
+        "id": "websocket_out",
+        "type": "websocket out",
+        "z": "ab822071cec3f461",
+        "name": "To Web UI",
+        "server": "ws_listener",
+        "client": "",
+        "x": 460,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "debug",
+        "type": "debug",
+        "z": "ab822071cec3f461",
+        "name": "Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 460,
+        "y": 180,
+        "wires": []
+    }
+]

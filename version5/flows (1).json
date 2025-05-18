@@ -1,0 +1,754 @@
+[
+    {
+        "id": "43864d688cbfec00",
+        "type": "tab",
+        "label": "ESP32_IOT_Controller",
+        "disabled": false,
+        "info": "Luồng điều khiển và giám sát thiết bị IoT ESP32"
+    },
+    {
+        "id": "08330ce4c6000f5f",
+        "type": "mqtt in",
+        "z": "43864d688cbfec00",
+        "name": "Nhiệt độ",
+        "topic": "esp32/sensor/temperature",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "6df0540f12236ba5",
+        "inputs": 0,
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "ecf3c038d6fc77d8"
+            ]
+        ]
+    },
+    {
+        "id": "ecf3c038d6fc77d8",
+        "type": "function",
+        "z": "43864d688cbfec00",
+        "name": "Xử lý Nhiệt độ",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 100,
+        "wires": [
+            [
+                "cd2f466f74783938"
+            ]
+        ]
+    },
+    {
+        "id": "cd2f466f74783938",
+        "type": "ui_gauge",
+        "z": "43864d688cbfec00",
+        "name": "Nhiệt độ",
+        "group": "a501606afd47b602",
+        "order": 1,
+        "width": 6,
+        "height": 6,
+        "gtype": "gauge",
+        "title": "Nhiệt độ",
+        "label": "°C",
+        "format": "{{value | number:1}}",
+        "min": "0",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "20",
+        "seg2": "30",
+        "x": 480,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "e42caf347adeaa72",
+        "type": "mqtt in",
+        "z": "43864d688cbfec00",
+        "name": "Độ ẩm",
+        "topic": "esp32/sensor/humidity",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "6df0540f12236ba5",
+        "inputs": 0,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "3a955a675b4e2f9a"
+            ]
+        ]
+    },
+    {
+        "id": "3a955a675b4e2f9a",
+        "type": "function",
+        "z": "43864d688cbfec00",
+        "name": "Xử lý Độ ẩm",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "9fd909a2f07f0232"
+            ]
+        ]
+    },
+    {
+        "id": "9fd909a2f07f0232",
+        "type": "ui_gauge",
+        "z": "43864d688cbfec00",
+        "name": "Độ ẩm",
+        "group": "a501606afd47b602",
+        "order": 2,
+        "width": 6,
+        "height": 6,
+        "gtype": "gauge",
+        "title": "Độ ẩm",
+        "label": "%",
+        "format": "{{value | number:1}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "40",
+        "seg2": "70",
+        "x": 480,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "bf2e73a86b469090",
+        "type": "mqtt in",
+        "z": "43864d688cbfec00",
+        "name": "Áp suất",
+        "topic": "esp32/sensor/pressure",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "6df0540f12236ba5",
+        "inputs": 0,
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "7021d14f4bc76d83"
+            ]
+        ]
+    },
+    {
+        "id": "7021d14f4bc76d83",
+        "type": "function",
+        "z": "43864d688cbfec00",
+        "name": "Xử lý Áp suất",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 220,
+        "wires": [
+            [
+                "15489f45166aafbb"
+            ]
+        ]
+    },
+    {
+        "id": "15489f45166aafbb",
+        "type": "ui_gauge",
+        "z": "43864d688cbfec00",
+        "name": "Áp suất",
+        "group": "a501606afd47b602",
+        "order": 3,
+        "width": 6,
+        "height": 6,
+        "gtype": "gauge",
+        "title": "Áp suất",
+        "label": "hPa",
+        "format": "{{value | number:1}}",
+        "min": "900",
+        "max": "1100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "950",
+        "seg2": "1050",
+        "x": 480,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "d49ee5df5e7c8fa5",
+        "type": "mqtt in",
+        "z": "43864d688cbfec00",
+        "name": "Độ cao",
+        "topic": "esp32/sensor/altitude",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "6df0540f12236ba5",
+        "inputs": 0,
+        "x": 120,
+        "y": 280,
+        "wires": [
+            [
+                "243bcf42f3e265cb"
+            ]
+        ]
+    },
+    {
+        "id": "243bcf42f3e265cb",
+        "type": "function",
+        "z": "43864d688cbfec00",
+        "name": "Xử lý Độ cao",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 280,
+        "wires": [
+            [
+                "871676e59cdc9ab8"
+            ]
+        ]
+    },
+    {
+        "id": "871676e59cdc9ab8",
+        "type": "ui_gauge",
+        "z": "43864d688cbfec00",
+        "name": "Độ cao",
+        "group": "a501606afd47b602",
+        "order": 4,
+        "width": 6,
+        "height": 6,
+        "gtype": "gauge",
+        "title": "Độ cao",
+        "label": "m",
+        "format": "{{value | number:1}}",
+        "min": "-100",
+        "max": "1000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "0",
+        "seg2": "500",
+        "x": 480,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "29e3deeea9d4acd1",
+        "type": "mqtt in",
+        "z": "43864d688cbfec00",
+        "name": "Trạng thái Chế độ",
+        "topic": "esp32/mode/state",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "6df0540f12236ba5",
+        "inputs": 0,
+        "x": 150,
+        "y": 400,
+        "wires": [
+            [
+                "0ac623ad2c407e30",
+                "60434874920bda2b",
+                "4acd41f150313d05"
+            ]
+        ]
+    },
+    {
+        "id": "0ac623ad2c407e30",
+        "type": "ui_switch",
+        "z": "43864d688cbfec00",
+        "name": "Chế độ",
+        "label": "Chế độ Tự động",
+        "tooltip": "Bật/Tắt chế độ tự động (ON: Tự động, OFF: Thủ công)",
+        "group": "47fc300c8dbab913",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "topic": "esp32/mode/set",
+        "topicType": "str",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 360,
+        "y": 400,
+        "wires": [
+            [
+                "b5df3369290c0b98"
+            ]
+        ]
+    },
+    {
+        "id": "b5df3369290c0b98",
+        "type": "mqtt out",
+        "z": "43864d688cbfec00",
+        "name": "Điều khiển Chế độ",
+        "topic": "esp32/mode/set",
+        "qos": "2",
+        "retain": "true",
+        "broker": "6df0540f12236ba5",
+        "x": 630,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "8d82e36dd14332ff",
+        "type": "mqtt in",
+        "z": "43864d688cbfec00",
+        "name": "Trạng thái Máy sưởi",
+        "topic": "esp32/heater/state",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "6df0540f12236ba5",
+        "inputs": 0,
+        "x": 150,
+        "y": 540,
+        "wires": [
+            [
+                "08f33d5982bc3a48",
+                "fc85b5c892f1eaf0"
+            ]
+        ]
+    },
+    {
+        "id": "08f33d5982bc3a48",
+        "type": "ui_switch",
+        "z": "43864d688cbfec00",
+        "name": "Máy sưởi",
+        "label": "Máy sưởi",
+        "tooltip": "Bật/Tắt máy sưởi (chỉ hoạt động ở chế độ thủ công)",
+        "group": "47fc300c8dbab913",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "topic": "esp32/heater/set",
+        "topicType": "str",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 380,
+        "y": 540,
+        "wires": [
+            [
+                "0a7e5da057f8e4bf"
+            ]
+        ]
+    },
+    {
+        "id": "1f8fc2730455aabe",
+        "type": "mqtt out",
+        "z": "43864d688cbfec00",
+        "name": "Điều khiển Máy sưởi",
+        "topic": "esp32/heater/set",
+        "qos": "2",
+        "retain": "true",
+        "broker": "6df0540f12236ba5",
+        "x": 980,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "d63790bb7af2f47b",
+        "type": "mqtt in",
+        "z": "43864d688cbfec00",
+        "name": "Trạng thái Phun sương",
+        "topic": "esp32/humidifier/state",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "6df0540f12236ba5",
+        "inputs": 0,
+        "x": 140,
+        "y": 680,
+        "wires": [
+            [
+                "80261e73af898674",
+                "2bdb9669f0afcd5d"
+            ]
+        ]
+    },
+    {
+        "id": "80261e73af898674",
+        "type": "ui_switch",
+        "z": "43864d688cbfec00",
+        "name": "Phun sương",
+        "label": "Phun sương",
+        "tooltip": "Bật/Tắt phun sương (chỉ hoạt động ở chế độ thủ công)",
+        "group": "47fc300c8dbab913",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "topic": "esp32/humidifier/set",
+        "topicType": "str",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 390,
+        "y": 680,
+        "wires": [
+            [
+                "870b15a0ecf1e2c1"
+            ]
+        ]
+    },
+    {
+        "id": "29fbce3f3565dedb",
+        "type": "mqtt out",
+        "z": "43864d688cbfec00",
+        "name": "Điều khiển Phun sương",
+        "topic": "esp32/humidifier/set",
+        "qos": "2",
+        "retain": "true",
+        "broker": "6df0540f12236ba5",
+        "x": 970,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "9da23b65313d90a3",
+        "type": "mqtt in",
+        "z": "43864d688cbfec00",
+        "name": "Ngưỡng Nhiệt độ",
+        "topic": "esp32/threshold/temperature",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "6df0540f12236ba5",
+        "inputs": 0,
+        "x": 100,
+        "y": 820,
+        "wires": [
+            [
+                "a779c02b195f34fa"
+            ]
+        ]
+    },
+    {
+        "id": "a779c02b195f34fa",
+        "type": "ui_numeric",
+        "z": "43864d688cbfec00",
+        "name": "Ngưỡng Nhiệt độ",
+        "label": "Ngưỡng Nhiệt độ (°C)",
+        "tooltip": "Đặt ngưỡng nhiệt độ để điều khiển tự động máy sưởi",
+        "group": "47fc300c8dbab913",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "wrap": false,
+        "passthru": false,
+        "topic": "esp32/threshold/temperature/set",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "50",
+        "step": "0.5",
+        "x": 390,
+        "y": 820,
+        "wires": [
+            [
+                "0582d7aa388093bb"
+            ]
+        ]
+    },
+    {
+        "id": "0582d7aa388093bb",
+        "type": "mqtt out",
+        "z": "43864d688cbfec00",
+        "name": "Điều khiển Ngưỡng Nhiệt độ",
+        "topic": "esp32/threshold/temperature/set",
+        "qos": "2",
+        "retain": "true",
+        "broker": "6df0540f12236ba5",
+        "x": 700,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "a9b8f80f29be3256",
+        "type": "mqtt in",
+        "z": "43864d688cbfec00",
+        "name": "Ngưỡng Độ ẩm",
+        "topic": "esp32/threshold/humidity",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "6df0540f12236ba5",
+        "inputs": 0,
+        "x": 120,
+        "y": 900,
+        "wires": [
+            [
+                "19c1d12500b7905e"
+            ]
+        ]
+    },
+    {
+        "id": "19c1d12500b7905e",
+        "type": "ui_numeric",
+        "z": "43864d688cbfec00",
+        "name": "Ngưỡng Độ ẩm",
+        "label": "Ngưỡng Độ ẩm (%)",
+        "tooltip": "Đặt ngưỡng độ ẩm để điều khiển tự động phun sương",
+        "group": "47fc300c8dbab913",
+        "order": 5,
+        "width": 6,
+        "height": 1,
+        "wrap": false,
+        "passthru": false,
+        "topic": "esp32/threshold/humidity/set",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "step": "0.5",
+        "x": 340,
+        "y": 900,
+        "wires": [
+            [
+                "bf80ccd970a6e8f7"
+            ]
+        ]
+    },
+    {
+        "id": "bf80ccd970a6e8f7",
+        "type": "mqtt out",
+        "z": "43864d688cbfec00",
+        "name": "Điều khiển Ngưỡng Độ ẩm",
+        "topic": "esp32/threshold/humidity/set",
+        "qos": "2",
+        "retain": "true",
+        "broker": "6df0540f12236ba5",
+        "x": 700,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "47db888f763136b8",
+        "type": "ui_template",
+        "z": "43864d688cbfec00",
+        "group": "47fc300c8dbab913",
+        "name": "Hướng dẫn Sử dụng",
+        "order": 6,
+        "width": "12",
+        "height": "4",
+        "format": "<div style='padding: 10px; background-color: #f0f0f0; border-radius: 5px;'>\n    <h3>Hướng dẫn Sử dụng</h3>\n    <p><strong>Chế độ Tự động:</strong> Bật để tự động điều khiển máy sưởi và phun sương dựa trên ngưỡng nhiệt độ và độ ẩm.</p>\n    <p><strong>Máy sưởi/Phun sương:</strong> Chỉ có thể bật/tắt thủ công khi chế độ tự động tắt. Mỗi thiết bị hoạt động độc lập.</p>\n    <p><strong>Ngưỡng Nhiệt độ/Độ ẩm:</strong> Đặt giá trị mong muốn để điều khiển tự động (nhiệt độ: 0-50°C, độ ẩm: 0-100%).</p>\n    <p><strong>Dữ liệu Cảm biến:</strong> Hiển thị nhiệt độ, độ ẩm, áp suất, độ cao theo thời gian thực.</p>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 860,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "60434874920bda2b",
+        "type": "ui_text",
+        "z": "43864d688cbfec00",
+        "group": "47fc300c8dbab913",
+        "order": 7,
+        "width": 6,
+        "height": 1,
+        "name": "Trạng thái Chế độ",
+        "label": "Trạng thái Chế độ:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 390,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "fc85b5c892f1eaf0",
+        "type": "ui_text",
+        "z": "43864d688cbfec00",
+        "group": "47fc300c8dbab913",
+        "order": 8,
+        "width": 6,
+        "height": 1,
+        "name": "Trạng thái Máy sưởi",
+        "label": "Trạng thái Máy sưởi:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 360,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "2bdb9669f0afcd5d",
+        "type": "ui_text",
+        "z": "43864d688cbfec00",
+        "group": "47fc300c8dbab913",
+        "order": 9,
+        "width": 6,
+        "height": 1,
+        "name": "Trạng thái Phun sương",
+        "label": "Trạng thái Phun sương:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 370,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "4acd41f150313d05",
+        "type": "function",
+        "z": "43864d688cbfec00",
+        "name": "Lưu Chế độ Tự động",
+        "func": "if (msg.topic === 'esp32/mode/state') {\n    global.set('isAutoMode', msg.payload === 'ON');\n}\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 420,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0a7e5da057f8e4bf",
+        "type": "function",
+        "z": "43864d688cbfec00",
+        "name": "Kiểm tra Chế độ Tự động (Máy sưởi)",
+        "func": "if (global.get('isAutoMode') === true) {\n    node.warn('Không thể điều khiển máy sưởi khi ở chế độ tự động');\n    msg.payload = 'Không thể điều khiển máy sưởi ở chế độ tự động!';\n    msg.topic = 'error_message';\n    return [null, msg];\n}\nreturn [msg, null];",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 650,
+        "y": 540,
+        "wires": [
+            [
+                "1f8fc2730455aabe"
+            ],
+            [
+                "11c3a8dc6702089e"
+            ]
+        ]
+    },
+    {
+        "id": "870b15a0ecf1e2c1",
+        "type": "function",
+        "z": "43864d688cbfec00",
+        "name": "Kiểm tra Chế độ Tự động (Phun sương)",
+        "func": "if (global.get('isAutoMode') === true) {\n    node.warn('Không thể điều khiển phun sương khi ở chế độ tự động');\n    msg.payload = 'Không thể điều khiển phun sương ở chế độ tự động!';\n    msg.topic = 'error_message';\n    return [null, msg];\n}\nreturn [msg, null];",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 660,
+        "y": 680,
+        "wires": [
+            [
+                "29fbce3f3565dedb"
+            ],
+            [
+                "11c3a8dc6702089e"
+            ]
+        ]
+    },
+    {
+        "id": "11c3a8dc6702089e",
+        "type": "ui_toast",
+        "z": "43864d688cbfec00",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "Thông báo Lỗi",
+        "x": 940,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "6df0540f12236ba5",
+        "type": "mqtt-broker",
+        "name": "MQTT Broker",
+        "broker": "192.168.137.145",
+        "port": "1883",
+        "clientid": "node-red-client",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "a501606afd47b602",
+        "type": "ui_group",
+        "name": "Dữ liệu Cảm biến",
+        "tab": "97d0a7bc488d8a2e",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "47fc300c8dbab913",
+        "type": "ui_group",
+        "name": "Điều khiển",
+        "tab": "97d0a7bc488d8a2e",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "97d0a7bc488d8a2e",
+        "type": "ui_tab",
+        "name": "Bảng Điều khiển ESP32 IoT",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
