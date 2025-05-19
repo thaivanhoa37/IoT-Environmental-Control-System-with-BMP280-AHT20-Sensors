@@ -164,11 +164,11 @@ IoT-Environmental-Control-System/
 
 ## Author
 
-Created by [Your Name] - [Your Contact Information]
+Created by [thaivanhoa] - [thaivanhoa2002@gmail.com]
 
 ## License
 
-Copyright (c) 2024 [Your Name]
+Copyright (c) 2024 [thaivanhoa37]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
