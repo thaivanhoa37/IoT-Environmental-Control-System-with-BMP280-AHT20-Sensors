@@ -1,153 +1,222 @@
-# IoT Environmental Control System with BMP280 & AHT20 Sensors
+# IoT Environmental Control System with BMP280/AHT20 Sensors
 
-## 1. Project Overview
+A comprehensive IoT system for monitoring and controlling environmental conditions using ESP32, BMP280, and AHT20 sensors. The system provides real-time monitoring of temperature, humidity, pressure, and altitude, with automated control capabilities for environmental regulation.
 
-### Main Features
+## Features
 
-#### Environment Monitoring:
-- **AHT20** sensor: measures temperature and humidity.
-- **BMP280** sensor: measures air pressure and calculates altitude.
-- Sensor data is transmitted via **MQTT** and visualized using **Node-RED** or **MQTT Dashboard**.
+- **Real-time Environmental Monitoring**
+  - Temperature (°C)
+  - Humidity (%)
+  - Atmospheric Pressure (hPa)
+  - Altitude (m)
 
-#### Device Control:
-- **Heater** and **Humidifier** are controlled via **relay modules**.
+- **Automated Control System**
+  - Automatic mode for environmental regulation
+  - Manual control options
+  - Timer functionality for scheduled operations
+  - Two relay-controlled devices:
+    - Fan/Heater for temperature control
+    - Humidifier for humidity control
 
-**Automatic Mode:**
-- Devices are switched ON/OFF based on pre-set temperature and humidity thresholds.
+- **Web Interface**
+  - Real-time data visualization
+  - Interactive control dashboard
+  - Historical data charts with time range selection
+  - Responsive design for desktop and mobile
 
-**Manual Mode:**
-- Users can manually toggle devices using **push buttons** or **MQTT commands**.
+- **Hardware Components**
+  - ESP32 microcontroller
+  - BMP280 sensor (temperature & pressure)
+  - AHT20 sensor (temperature & humidity)
+  - OLED display for local monitoring
+  - Relay modules for device control
+  - Power supply unit
 
-#### OLED Display:
-- Real-time display of **temperature, humidity, pressure, altitude**, and **device status**.
+## System Architecture
 
-#### Web Configuration:
-- If **WiFi or MQTT connection fails**, the ESP32 switches to **Access Point (AP) mode** for reconfiguration via a built-in web interface.
+1. **Hardware Layer**
+   - ESP32 reads sensor data from BMP280 and AHT20
+   - Local display on OLED screen
+   - Relay control for connected devices
 
----
+2. **Communication Layer**
+   - MQTT protocol for real-time communication
+   - WebSocket for web interface updates
+   - WiFi connectivity with fallback AP mode
 
-## 2. Hardware Wiring
+3. **Backend Services**
+   - Node-RED for MQTT message handling
+   - MySQL database (via phpMyAdmin)
+   - Apache web server
 
-### Component List
-- **Microcontroller**: ESP32
-- **Sensors**: AHT20 (Temp + Humidity), BMP280 (Pressure + Altitude)
-- **Display**: OLED SSD1306 (128x64, I2C)
-- **Relays**: 2-channel relay module (for heater and humidifier)
-- **Push Buttons**: 3 (Mode, Heater Manual, Humidifier Manual)
-- **Wires, Breadboard, Power Supply**
+4. **Frontend Interface**
+   - Real-time monitoring dashboard
+   - Interactive control panel
+   - Historical data visualization
+   - Mobile-responsive design
 
-### Pin Mapping
+## Installation & Setup
 
-| Component             | ESP32 GPIO Pin     | Description                      |
-|----------------------|--------------------|----------------------------------|
-| **OLED SSD1306**     | SDA: GPIO21        | I2C shared bus                   |
-|                      | SCL: GPIO22        |                                  |
-|                      | VCC, GND           | Power (3.3V or 5V)               |
-| **AHT20 Sensor**      | SDA: GPIO21        |                                  |
-|                      | SCL: GPIO22        |                                  |
-| **BMP280 Sensor**     | SDA: GPIO21        |                                  |
-|                      | SCL: GPIO22        |                                  |
-| **Relay 1 (Heater)**  | IN1: GPIO26        | COM and NO/NC to device          |
-| **Relay 2 (Humidifier)** | IN2: GPIO27     |                                  |
-| **Mode Button**       | GPIO16             | One leg to GND                   |
-| **Heater Button**     | GPIO17             |                                  |
-| **Humidifier Button** | GPIO18             |                                  |
+### Hardware Setup
 
-### Power Supply
-- ESP32: powered via USB or 5V supply.
-- Relays and sensors: powered from 3.3V/5V pin of ESP32 or external source (recommended for high-current devices).
+1. Connect the sensors:
+   - BMP280: I2C connection (Address: 0x77)
+   - AHT20: I2C connection
+   - OLED Display: I2C connection (Address: 0x3C)
 
----
+2. Connect the relay modules:
+   - Heater/Fan control: GPIO 18
+   - Humidifier control: GPIO 19
 
-## 3. Running Node-RED on Raspberry Pi 4
+3. Connect control buttons:
+   - Mode button: GPIO 25
+   - Device 1 button: GPIO 26
+   - Device 2 button: GPIO 27
 
-### Install Node-RED
+### Software Installation
 
-```bash
-sudo apt update && sudo apt upgrade -y
-curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-sudo apt install -y nodejs
-sudo npm install -g --unsafe-perm node-red
-Start Node-RED
-bash
-node-red
-Access Node-RED in your browser:
-http://<RaspberryPi-IP>:1880
-(e.g. http://192.168.1.100:1880)
+1. **ESP32 Setup**
+   ```bash
+   # Open Arduino IDE
+   # Install required libraries:
+   - Adafruit_GFX
+   - Adafruit_SSD1306
+   - Adafruit_AHTX0
+   - Adafruit_BMP280
+   - PubSubClient
+   - ESPAsyncWebServer
+   - AsyncTCP
 
-4. Import Node-RED Flow
-Open Node-RED in the browser.
+   # Flash the ESP32 with DACNIII.ino
+   ```
 
-Click the menu (top-right corner) > Import > Clipboard.
+2. **Node-RED Setup**
+   ```bash
+   # Install Node-RED
+   npm install -g node-red
 
-Paste the JSON flow below:
+   # Import the flows.json configuration from node_scrip folder
+   # Configure MQTT broker settings
+   ```
 
-[
-  {
-    "id": "mqtt-in",
-    "type": "mqtt in",
-    "z": "flow1",
-    "name": "Receive Sensor Data",
-    "topic": "iot/state/#",
-    "qos": "2",
-    "datatype": "auto",
-    "broker": "mqtt-broker",
-    "x": 160,
-    "y": 180,
-    "wires": [
-      ["debug-node"]
-    ]
-  },
-  {
-    "id": "mqtt-out",
-    "type": "mqtt out",
-    "z": "flow1",
-    "name": "Control Devices",
-    "topic": "iot/control/device1",
-    "qos": "2",
-    "retain": "false",
-    "broker": "mqtt-broker",
-    "x": 160,
-    "y": 300,
-    "wires": []
-  },
-  {
-    "id": "debug-node",
-    "type": "debug",
-    "z": "flow1",
-    "name": "Debug Sensor Data",
-    "active": true,
-    "console": "true",
-    "complete": "true",
-    "x": 400,
-    "y": 180,
-    "wires": []
-  },
-  {
-    "id": "mqtt-broker",
-    "type": "mqtt-broker",
-    "z": "",
-    "name": "MQTT Broker",
-    "broker": "192.168.1.100",
-    "port": "1883",
-    "clientid": "NodeRED_Client",
-    "usetls": false,
-    "compatmode": true,
-    "keepalive": "60",
-    "cleansession": true,
-    "birthTopic": "",
-    "birthQos": "0",
-    "birthRetain": "false",
-    "birthPayload": "",
-    "closeTopic": "",
-    "closeQos": "0",
-    "closeRetain": "false",
-    "closePayload": "",
-    "willTopic": "",
-    "willQos": "0",
-    "willRetain": "false",
-    "willPayload": ""
-  }
-]
-⚠️ Replace the broker IP address (192.168.1.100) with your actual MQTT broker IP.
+3. **XAMPP Setup**
+   ```bash
+   # Install XAMPP (Apache + MySQL + phpMyAdmin)
+   1. Download XAMPP from https://www.apachefriends.org/
+   2. Install XAMPP
+   3. Start Apache and MySQL services
+   
+   # Database Setup
+   1. Open phpMyAdmin (http://localhost/phpmyadmin)
+   2. Create new database 'environment_data'
+   3. Import database/environment_data.sql
+   
+   # Web Interface Setup
+   1. Copy Done_project/web folder to C:/xampp/htdocs/
+   2. Access web interface at http://localhost/web/
+   ```
 
+## Running the Project
+
+1. **Start Required Services**
+   ```bash
+   1. Start XAMPP Control Panel
+   2. Start Apache and MySQL services
+   3. Start Node-RED (run 'node-red' in terminal)
+   4. Import flows.json into Node-RED
+   ```
+
+2. **ESP32 Configuration**
+   - Power up the ESP32
+   - Connect to ESP32_Config WiFi network (Password: 12345678)
+   - Open http://192.168.4.1
+   - Configure:
+     - WiFi credentials
+     - MQTT broker IP (your computer's IP)
+
+3. **Access Web Interface**
+   - Open http://localhost/web/
+   - Default database credentials:
+     - Username: root
+     - Password: 1
+     - Database: environment_data
+
+4. **Verify System**
+   - Check ESP32 connection status
+   - Verify sensor readings
+   - Test device controls
+   - Monitor data logging
+
+## Usage
+
+1. **Control Modes**
+   - **Automatic Mode**: System controls devices based on thresholds
+   - **Manual Mode**: Direct control of individual devices
+   - **Timer Mode**: Schedule device operations
+
+2. **Data Visualization**
+   - Real-time updates every 5 seconds
+   - Historical data view (1-72 hours)
+   - Zoomable and interactive charts
+
+## Project Structure
+
+```
+Done_project/
+├── DACNIII/
+│   └── DACNIII.ino          # ESP32 firmware
+├── database/
+│   └── environment_data.sql  # Database schema
+├── node_scrip/
+│   └── flows.json           # Node-RED flows
+└── web/
+    └── index.php            # Web interface
+```
+
+## Troubleshooting
+
+1. **XAMPP Issues**
+   - Verify Apache and MySQL are running
+   - Check port conflicts (default ports: Apache 80, MySQL 3306)
+   - Review XAMPP error logs
+
+2. **Database Connection**
+   - Verify MySQL service is running
+   - Check database credentials in index.php
+   - Confirm database and tables exist
+
+3. **ESP32 Connection**
+   - Verify WiFi connectivity
+   - Check MQTT broker address
+   - Monitor serial output for debugging
+
+4. **Sensor Reading Errors**
+   - Check I2C connections
+   - Verify sensor addresses
+   - Monitor serial output
+
+## Author
+
+Created by [Your Name] - [Your Contact Information]
+
+## License
+
+Copyright (c) 2024 [Your Name]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

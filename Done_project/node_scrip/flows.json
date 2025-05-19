@@ -1,0 +1,966 @@
+[
+    {
+        "id": "ab822071cec3f461",
+        "type": "tab",
+        "label": "ESP32 Environment Control",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0da3f3f0818e4f22",
+        "type": "group",
+        "z": "ab822071cec3f461",
+        "name": "Environmental Sensors Display",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "ce1dcb2add9ac2c0",
+            "4d6c2d7b2ab696af",
+            "3e1c20f471ef0775",
+            "f1bc9aee1d1dbada",
+            "50a692d8b94a70e3",
+            "bfcf1a4169951b42",
+            "eb0b25006e1bafac",
+            "7693367e4085c8bb",
+            "5839d25a3a5b90a9",
+            "4e9cfc38b357ae77",
+            "47331ebd80c77685",
+            "8e3e7283e77786de"
+        ],
+        "x": 74,
+        "y": 59,
+        "w": 652,
+        "h": 262
+    },
+    {
+        "id": "4e72c89a940dcbc7",
+        "type": "group",
+        "z": "ab822071cec3f461",
+        "name": "Device Control",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "fa0a18365f9163b9",
+            "2832287c9fb42b56",
+            "4ec4df64232c3a58",
+            "ec76c808376f7cfc",
+            "eccd26edac0d4144",
+            "bd61cd39a9205ebd"
+        ],
+        "x": 84,
+        "y": 959,
+        "w": 442,
+        "h": 202
+    },
+    {
+        "id": "381d863772a12ff6",
+        "type": "group",
+        "z": "ab822071cec3f461",
+        "name": "Database Storage",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "1bf5c42ffe0aa1cf",
+            "ed4bb51976316751",
+            "058a9214e9b10cdf",
+            "1c8c162d4f7b76a1",
+            "af116fc3125f5492",
+            "b79859aa285cbcaa"
+        ],
+        "x": 74,
+        "y": 379,
+        "w": 692,
+        "h": 262
+    },
+    {
+        "id": "fb84a26e67e28da5",
+        "type": "group",
+        "z": "ab822071cec3f461",
+        "name": "Web control",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "websocket_in",
+            "command_handler",
+            "mqtt_out",
+            "debug",
+            "mqtt_state_in",
+            "state_handler",
+            "websocket_out"
+        ],
+        "x": 74,
+        "y": 699,
+        "w": 662,
+        "h": 202
+    },
+    {
+        "id": "ce1dcb2add9ac2c0",
+        "type": "mqtt in",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "topic": "esp32/sensor/temperature",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "6df0540f12236ba5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 100,
+        "wires": [
+            [
+                "50a692d8b94a70e3",
+                "5839d25a3a5b90a9"
+            ]
+        ]
+    },
+    {
+        "id": "4d6c2d7b2ab696af",
+        "type": "mqtt in",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "topic": "esp32/sensor/humidity",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "6df0540f12236ba5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "bfcf1a4169951b42",
+                "4e9cfc38b357ae77"
+            ]
+        ]
+    },
+    {
+        "id": "f1bc9aee1d1dbada",
+        "type": "mqtt in",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "topic": "esp32/sensor/pressure",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "6df0540f12236ba5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 220,
+        "wires": [
+            [
+                "eb0b25006e1bafac",
+                "47331ebd80c77685"
+            ]
+        ]
+    },
+    {
+        "id": "3e1c20f471ef0775",
+        "type": "mqtt in",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "topic": "esp32/sensor/altitude",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "6df0540f12236ba5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 280,
+        "wires": [
+            [
+                "7693367e4085c8bb",
+                "8e3e7283e77786de"
+            ]
+        ]
+    },
+    {
+        "id": "50a692d8b94a70e3",
+        "type": "ui_gauge",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "group": "520eaee8138b48c9",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "gtype": "donut",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "25",
+        "seg2": "30",
+        "diff": false,
+        "className": "",
+        "x": 400,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "bfcf1a4169951b42",
+        "type": "ui_gauge",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "group": "520eaee8138b48c9",
+        "order": 2,
+        "width": "6",
+        "height": "6",
+        "gtype": "donut",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ca3838",
+            "#e6e600",
+            "#00b500"
+        ],
+        "seg1": "30",
+        "seg2": "60",
+        "diff": false,
+        "className": "",
+        "x": 400,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "eb0b25006e1bafac",
+        "type": "ui_gauge",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "group": "520eaee8138b48c9",
+        "order": 3,
+        "width": "6",
+        "height": "6",
+        "gtype": "donut",
+        "title": "Pressure",
+        "label": "hPa",
+        "format": "{{value}}",
+        "min": "900",
+        "max": "1100",
+        "colors": [
+            "#ca3838",
+            "#00b500",
+            "#ca3838"
+        ],
+        "seg1": "980",
+        "seg2": "1020",
+        "diff": false,
+        "className": "",
+        "x": 400,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "7693367e4085c8bb",
+        "type": "ui_gauge",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "group": "520eaee8138b48c9",
+        "order": 4,
+        "width": "6",
+        "height": "6",
+        "gtype": "donut",
+        "title": "Altitude",
+        "label": "m",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "30",
+        "seg2": "70",
+        "diff": false,
+        "className": "",
+        "x": 400,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "5839d25a3a5b90a9",
+        "type": "ui_chart",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "group": "520eaee8138b48c9",
+        "order": 5,
+        "width": "12",
+        "height": "6",
+        "label": "Temperature History",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "50",
+        "removeOlder": "8",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ff0000",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 600,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4e9cfc38b357ae77",
+        "type": "ui_chart",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "group": "520eaee8138b48c9",
+        "order": 6,
+        "width": "12",
+        "height": "6",
+        "label": "Humidity History",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "8",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#0000ff",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 600,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "47331ebd80c77685",
+        "type": "ui_chart",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "group": "520eaee8138b48c9",
+        "order": 7,
+        "width": "12",
+        "height": "6",
+        "label": "Pressure History",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "900",
+        "ymax": "1100",
+        "removeOlder": "8",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#00ff00",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 600,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8e3e7283e77786de",
+        "type": "ui_chart",
+        "z": "ab822071cec3f461",
+        "g": "0da3f3f0818e4f22",
+        "name": "",
+        "group": "520eaee8138b48c9",
+        "order": 8,
+        "width": "12",
+        "height": "6",
+        "label": "Altitude History",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "8",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ff7f0e",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 600,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ec76c808376f7cfc",
+        "type": "ui_switch",
+        "z": "ab822071cec3f461",
+        "g": "4e72c89a940dcbc7",
+        "name": "",
+        "label": "Auto Mode",
+        "tooltip": "",
+        "group": "09796fcaad927c2c",
+        "order": 1,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "decouple": "false",
+        "topic": "mode/set",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 180,
+        "y": 1000,
+        "wires": [
+            [
+                "fa0a18365f9163b9"
+            ]
+        ]
+    },
+    {
+        "id": "eccd26edac0d4144",
+        "type": "ui_switch",
+        "z": "ab822071cec3f461",
+        "g": "4e72c89a940dcbc7",
+        "name": "",
+        "label": "Heater",
+        "tooltip": "",
+        "group": "09796fcaad927c2c",
+        "order": 2,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "decouple": "false",
+        "topic": "heater/set",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 180,
+        "y": 1060,
+        "wires": [
+            [
+                "2832287c9fb42b56"
+            ]
+        ]
+    },
+    {
+        "id": "bd61cd39a9205ebd",
+        "type": "ui_switch",
+        "z": "ab822071cec3f461",
+        "g": "4e72c89a940dcbc7",
+        "name": "",
+        "label": "Humidifier",
+        "tooltip": "",
+        "group": "09796fcaad927c2c",
+        "order": 3,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "decouple": "false",
+        "topic": "humidifier/set",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 180,
+        "y": 1120,
+        "wires": [
+            [
+                "4ec4df64232c3a58"
+            ]
+        ]
+    },
+    {
+        "id": "fa0a18365f9163b9",
+        "type": "mqtt out",
+        "z": "ab822071cec3f461",
+        "g": "4e72c89a940dcbc7",
+        "name": "",
+        "topic": "esp32/mode/set",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6df0540f12236ba5",
+        "x": 400,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "2832287c9fb42b56",
+        "type": "mqtt out",
+        "z": "ab822071cec3f461",
+        "g": "4e72c89a940dcbc7",
+        "name": "",
+        "topic": "esp32/heater/set",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6df0540f12236ba5",
+        "x": 400,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "4ec4df64232c3a58",
+        "type": "mqtt out",
+        "z": "ab822071cec3f461",
+        "g": "4e72c89a940dcbc7",
+        "name": "",
+        "topic": "esp32/humidifier/set",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6df0540f12236ba5",
+        "x": 400,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "1bf5c42ffe0aa1cf",
+        "type": "mqtt in",
+        "z": "ab822071cec3f461",
+        "g": "381d863772a12ff6",
+        "name": "",
+        "topic": "esp32/sensor/temperature",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "6df0540f12236ba5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 420,
+        "wires": [
+            [
+                "b79859aa285cbcaa"
+            ]
+        ]
+    },
+    {
+        "id": "ed4bb51976316751",
+        "type": "mqtt in",
+        "z": "ab822071cec3f461",
+        "g": "381d863772a12ff6",
+        "name": "",
+        "topic": "esp32/sensor/pressure",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "6df0540f12236ba5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 480,
+        "wires": [
+            [
+                "b79859aa285cbcaa"
+            ]
+        ]
+    },
+    {
+        "id": "058a9214e9b10cdf",
+        "type": "mqtt in",
+        "z": "ab822071cec3f461",
+        "g": "381d863772a12ff6",
+        "name": "",
+        "topic": "esp32/sensor/humidity",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "6df0540f12236ba5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 540,
+        "wires": [
+            [
+                "b79859aa285cbcaa"
+            ]
+        ]
+    },
+    {
+        "id": "1c8c162d4f7b76a1",
+        "type": "mqtt in",
+        "z": "ab822071cec3f461",
+        "g": "381d863772a12ff6",
+        "name": "",
+        "topic": "esp32/sensor/altitude",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "6df0540f12236ba5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 600,
+        "wires": [
+            [
+                "b79859aa285cbcaa"
+            ]
+        ]
+    },
+    {
+        "id": "af116fc3125f5492",
+        "type": "mysql",
+        "z": "ab822071cec3f461",
+        "g": "381d863772a12ff6",
+        "mydb": "c08db5e37956216c",
+        "name": "MySQL Storage",
+        "x": 660,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b79859aa285cbcaa",
+        "type": "function",
+        "z": "ab822071cec3f461",
+        "g": "381d863772a12ff6",
+        "name": "Database Storage Handler",
+        "func": "let sensor = context.get(\"sensor\") || {};\n\nswitch (msg.topic) {\n    case \"esp32/sensor/temperature\":\n        sensor.temperature = parseFloat(msg.payload);\n        break;\n    case \"esp32/sensor/humidity\":\n        sensor.humidity = parseFloat(msg.payload);\n        break;\n    case \"esp32/sensor/pressure\":\n        sensor.pressure = parseFloat(msg.payload);\n        break;\n    case \"esp32/sensor/altitude\":\n        sensor.altitude = parseFloat(msg.payload);\n        break;\n}\n\ncontext.set(\"sensor\", sensor);\n\nif (sensor.temperature !== undefined &&\n    sensor.humidity !== undefined &&\n    sensor.pressure !== undefined &&\n    sensor.altitude !== undefined) {\n    \n    let now = new Date();\n    now.setHours(now.getHours() + 7); // Vietnam timezone\n    let time = now.toISOString().slice(0, 19).replace(\"T\", \" \");\n\n    msg.topic = `INSERT INTO sensor_data (temperature, humidity, pressure, altitude, timestamp)\n                 VALUES (${sensor.temperature}, ${sensor.humidity}, ${sensor.pressure}, ${sensor.altitude}, '${time}')`;\n\n    context.set(\"sensor\", {}); // Reset after storing\n    return msg;\n}\n\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 540,
+        "wires": [
+            [
+                "af116fc3125f5492"
+            ]
+        ]
+    },
+    {
+        "id": "websocket_in",
+        "type": "websocket in",
+        "z": "ab822071cec3f461",
+        "g": "fb84a26e67e28da5",
+        "name": "WebSocket In",
+        "server": "f5494776a418eb99",
+        "client": "",
+        "x": 170,
+        "y": 740,
+        "wires": [
+            [
+                "command_handler"
+            ]
+        ]
+    },
+    {
+        "id": "command_handler",
+        "type": "function",
+        "z": "ab822071cec3f461",
+        "g": "fb84a26e67e28da5",
+        "name": "Format MQTT Command",
+        "func": "try {\n    const data = JSON.parse(msg.payload);\n    \n    if (!data.type || !data.state) return null;\n    \n    return {\n        topic: `esp32/${data.type}/set`,\n        payload: data.state,\n        retain: false\n    };\n} catch (e) {\n    node.error(e);\n    return null;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 740,
+        "wires": [
+            [
+                "mqtt_out",
+                "debug"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_out",
+        "type": "mqtt out",
+        "z": "ab822071cec3f461",
+        "g": "fb84a26e67e28da5",
+        "name": "To ESP32",
+        "topic": "",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6df0540f12236ba5",
+        "x": 630,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "debug",
+        "type": "debug",
+        "z": "ab822071cec3f461",
+        "g": "fb84a26e67e28da5",
+        "name": "Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "mqtt_state_in",
+        "type": "mqtt in",
+        "z": "ab822071cec3f461",
+        "g": "fb84a26e67e28da5",
+        "name": "ESP32 States",
+        "topic": "esp32/+/state",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "6df0540f12236ba5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 800,
+        "wires": [
+            [
+                "state_handler"
+            ]
+        ]
+    },
+    {
+        "id": "state_handler",
+        "type": "function",
+        "z": "ab822071cec3f461",
+        "g": "fb84a26e67e28da5",
+        "name": "Format State Update",
+        "func": "const device = msg.topic.split('/')[1];\n\nreturn {\n    payload: {\n        type: device,\n        state: msg.payload\n    }\n};",
+        "outputs": 1,
+        "x": 400,
+        "y": 800,
+        "wires": [
+            [
+                "websocket_out"
+            ]
+        ]
+    },
+    {
+        "id": "websocket_out",
+        "type": "websocket out",
+        "z": "ab822071cec3f461",
+        "g": "fb84a26e67e28da5",
+        "name": "WebSocket Out",
+        "server": "f5494776a418eb99",
+        "client": "",
+        "x": 630,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "6df0540f12236ba5",
+        "type": "mqtt-broker",
+        "name": "MQTT Broker",
+        "broker": "192.168.137.241",
+        "port": "1883",
+        "clientid": "node-red-client",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "520eaee8138b48c9",
+        "type": "ui_group",
+        "name": "Environmental Data",
+        "tab": "3fef2f01f1ae5d7c",
+        "order": 1,
+        "disp": true,
+        "width": "25"
+    },
+    {
+        "id": "09796fcaad927c2c",
+        "type": "ui_group",
+        "name": "Device Control",
+        "tab": "3fef2f01f1ae5d7c",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "c08db5e37956216c",
+        "type": "MySQLdatabase",
+        "name": "Environment DB",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "environment_data",
+        "tz": "Asia/Ho_Chi_Minh",
+        "charset": "UTF8"
+    },
+    {
+        "id": "f5494776a418eb99",
+        "type": "websocket-listener",
+        "path": "/ws/node/state",
+        "wholemsg": "false"
+    },
+    {
+        "id": "3fef2f01f1ae5d7c",
+        "type": "ui_tab",
+        "name": "ESP32 Environment Control",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

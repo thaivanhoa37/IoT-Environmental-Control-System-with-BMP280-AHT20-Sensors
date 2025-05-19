@@ -857,8 +857,8 @@ if (!$initial_data) {
             const newState = currentState === 'OFF' ? 'ON' : 'OFF';
             
             const message = {
-                topic: `esp32/${device}/set`,
-                payload: newState
+                type: device,
+                state: newState
             };
 
             // Update button appearance immediately for better UX
@@ -890,12 +890,16 @@ if (!$initial_data) {
                 ws.close();
             }
 
-            ws = new WebSocket(`ws://${hostname}:1880/mqtt`);
+            ws = new WebSocket(`ws://${hostname}:1880/ws/node/state`);
             
+
             ws.onopen = function() {
                 console.log('WebSocket Connected');
                 updateConnectionStatus(true);
                 updateData();
+                
+                // Subscribe to MQTT state topics via Node-RED
+                console.log('Subscribing to state topics...');
             };
 
             ws.onclose = function() {
@@ -912,32 +916,29 @@ if (!$initial_data) {
             ws.onmessage = function(evt) {
                 try {
                     const data = JSON.parse(evt.data);
-                    if (data.payload) {
-                        const message = JSON.parse(data.payload);
-                        if (message.topic && message.topic.endsWith('/state')) {
-                            const device = message.topic.split('/')[1];
-                            const btn = document.getElementById(device + 'Btn');
-                            if (btn) {
-                                btn.setAttribute('data-state', message.payload);
-                                let label, icon;
-                                switch(device) {
-                                    case 'mode':
-                                        label = 'Chế độ tự động';
-                                        icon = 'fa-sync-alt';
-                                        break;
-                                    case 'heater':
-                                        label = 'Quạt thông gió';
-                                        icon = 'fa-fan';
-                                        break;
-                                    case 'humidifier':
-                                        label = 'Phun sương';
-                                        icon = 'fa-cloud-rain';
-                                        break;
-                                }
-                                btn.innerHTML = `<i class="fas ${icon} me-2"></i>${label}: ${message.payload === 'ON' ? 'BẬT' : 'TẮT'}`;
-                                btn.className = `control-btn ${message.payload === 'ON' ? 'on' : 'off'}`;
-                                btn.setAttribute('data-state', message.payload);
+                    if (data.type && data.state) {
+                        const device = data.type;
+                        const state = data.state;
+                        const btn = document.getElementById(device + 'Btn');
+                        if (btn) {
+                            btn.setAttribute('data-state', state);
+                            let label, icon;
+                            switch(device) {
+                                case 'mode':
+                                    label = 'Chế độ tự động';
+                                    icon = 'fa-sync-alt';
+                                    break;
+                                case 'heater':
+                                    label = 'Thiết bị 1';
+                                    icon = 'fa-fan';
+                                    break;
+                                case 'humidifier':
+                                    label = 'Thiết bị 2';
+                                    icon = 'fa-cloud-rain';
+                                    break;
                             }
+                            btn.innerHTML = `<i class="fas ${icon} me-2"></i>${label}: ${state === 'ON' ? 'BẬT' : 'TẮT'}`;
+                            btn.className = `control-btn ${state === 'ON' ? 'on' : 'off'}`;
                         }
                     }
                 } catch (e) {
