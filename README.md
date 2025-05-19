@@ -111,10 +111,6 @@ A comprehensive IoT system for monitoring and controlling environmental conditio
 
    # Create database and user
    CREATE DATABASE environment_data;
-   CREATE USER 'pi'@'localhost' IDENTIFIED BY 'your_password';
-   GRANT ALL PRIVILEGES ON environment_data.* TO 'pi'@'localhost';
-   FLUSH PRIVILEGES;
-   EXIT;
 
    # Import database schema
    cd /path/to/project
