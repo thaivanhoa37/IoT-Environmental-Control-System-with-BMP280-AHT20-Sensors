@@ -86,8 +86,8 @@ bool publishDeviceFlag = false;
 bool thresholdUpdated = false;
 bool isAPMode = false;
 
-float tempThreshold = 25.0;
-float humiThreshold = 60.0;
+float tempThreshold = 35.0;// sét ngưỡng nhiệt độ
+float humiThreshold = 70.0; //sét ngưỡng độ ẩm
 
 char msg[50];
 

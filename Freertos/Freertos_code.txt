@@ -1,0 +1,133 @@
+GIẢI THÍCH VỀ CÁC TASK FREERTOS VÀ CHỨC NĂNG CODE TRONG DACNIII.ino
+
+A. CÁC TASK TRONG FREERTOS
+
+1. Task Đọc Cảm Biến (TaskReadSensor)
+- Chạy trên Core 1 với độ ưu tiên cao nhất (3)
+- Dung lượng bộ nhớ: 4096 bytes
+- Chức năng:
+  + Đọc nhiệt độ và độ ẩm từ cảm biến AHT20
+  + Đọc áp suất và độ cao từ cảm biến BMP280
+  + Thực hiện đọc mỗi 2 giây một lần
+  + Tính tổng các giá trị để lấy trung bình
+  + Hiển thị giá trị thô qua cổng Serial
+
+2. Task Xử Lý và In Dữ Liệu (TaskPrintData)
+- Chạy trên Core 1 với độ ưu tiên thấp (1)
+- Dung lượng bộ nhớ: 4096 bytes
+- Chức năng:
+  + Tính giá trị trung bình trong 30 giây (15 lần đọc)
+  + Xử lý dữ liệu nhiệt độ, độ ẩm, áp suất và độ cao
+  + Kích hoạt cập nhật màn hình và gửi dữ liệu MQTT
+  + In giá trị trung bình ra Serial monitor
+  + Quản lý cờ cập nhật dữ liệu cho chế độ tự động
+
+3. Task Hiển Thị (TaskDisplay)
+- Chạy trên Core 0 với độ ưu tiên thấp (1)
+- Dung lượng bộ nhớ: 4096 bytes
+- Chức năng:
+  + Cập nhật màn hình OLED với các giá trị cảm biến hiện tại
+  + Hiển thị trạng thái thiết bị (máy sưởi và máy tạo ẩm)
+  + Hiển thị chế độ hoạt động (Tự động/Thủ công)
+  + Cập nhật khi có thay đổi giá trị
+  + Hiển thị thông tin khi ở chế độ AP
+
+4. Task Điều Khiển (TaskControl)
+- Chạy trên Core 1 với độ ưu tiên trung bình (2)
+- Dung lượng bộ nhớ: 4096 bytes
+- Chức năng:
+  + Xử lý đầu vào từ các nút nhấn với chống dội
+  + Điều khiển chuyển đổi chế độ (Tự động/Thủ công)
+  + Quản lý điều khiển thiết bị trong chế độ thủ công
+  + Thực hiện điều khiển tự động dựa trên ngưỡng
+  + Điều khiển relay cho máy sưởi và máy tạo ẩm
+
+5. Task MQTT (TaskMQTT)
+- Chạy trên Core 1 với độ ưu tiên thấp (1)
+- Dung lượng bộ nhớ: 4096 bytes
+- Chức năng:
+  + Quản lý kết nối và kết nối lại MQTT
+  + Gửi dữ liệu cảm biến và trạng thái thiết bị
+  + Xử lý tin nhắn MQTT nhận được
+  + Chuyển sang chế độ AP khi kết nối thất bại
+  + Duy trì kết nối WiFi
+
+B. CHỨC NĂNG CHÍNH CỦA CODE
+
+1. Kết Nối và Truyền Thông
+- Kết nối WiFi tự động với thông tin được lưu trong EEPROM
+- Giao tiếp MQTT với broker để gửi/nhận dữ liệu
+- Chế độ AP tự động khi không thể kết nối WiFi
+- Giao diện web để cấu hình WiFi và MQTT
+
+2. Đo Lường và Hiển Thị
+- Sử dụng cảm biến AHT20 đo nhiệt độ và độ ẩm
+- Sử dụng cảm biến BMP280 đo áp suất và độ cao
+- Hiển thị dữ liệu trên màn hình OLED
+- In thông tin chi tiết qua Serial monitor
+
+3. Điều Khiển Thiết Bị
+- Hai chế độ hoạt động: Tự động và Thủ công
+- Điều khiển máy sưởi dựa trên ngưỡng nhiệt độ
+- Điều khiển máy tạo ẩm dựa trên ngưỡng độ ẩm
+- Nút nhấn vật lý để điều khiển và chuyển chế độ
+
+4. Lưu Trữ Cấu Hình
+- Sử dụng EEPROM để lưu thông tin WiFi
+- Lưu địa chỉ MQTT broker
+- Khả năng cập nhật cấu hình qua giao diện web
+
+5. Xử Lý Lỗi và An Toàn
+- Tự động khởi động lại khi mất kết nối
+- Chuyển sang chế độ AP sau nhiều lần kết nối thất bại
+- Bảo vệ chống dội cho các nút nhấn
+- Kiểm tra tính hợp lệ của dữ liệu cảm biến
+
+Phân Bố Tài Nguyên:
+- Core 0: Chuyên xử lý hiển thị
+- Core 1: Xử lý cảm biến, điều khiển, và truyền thông
+- Ưu tiên cao nhất cho việc đọc cảm biến
+- Ưu tiên trung bình cho điều khiển thiết bị
+- Ưu tiên thấp cho hiển thị và truyền thông
+
+C. CHẾ ĐỘ HOẠT ĐỘNG
+
+1. Chế Độ Thủ Công (Manual Mode)
+- Đặc điểm:
+  + Người dùng điều khiển trực tiếp thiết bị qua nút nhấn
+  + Bật/tắt máy sưởi và máy tạo ẩm độc lập
+  + Không phụ thuộc vào các ngưỡng cài đặt
+  + Trạng thái thiết bị được duy trì cho đến khi có lệnh thay đổi
+- Cách hoạt động:
+  + Nút 1: Chuyển đổi trạng thái máy sưởi
+  + Nút 2: Chuyển đổi trạng thái máy tạo ẩm
+  + Nút 3: Chuyển đổi giữa chế độ thủ công và tự động
+  + Trạng thái được hiển thị trên màn hình OLED
+  + Điều khiển có thể thực hiện qua MQTT
+
+2. Chế Độ Tự Động (Auto Mode)
+- Đặc điểm:
+  + Hệ thống tự động điều khiển dựa trên ngưỡng cài đặt
+  + Duy trì nhiệt độ và độ ẩm trong khoảng mong muốn
+  + Tối ưu hóa việc sử dụng thiết bị
+  + Tự động phản ứng với thay đổi môi trường
+- Cách hoạt động:
+  + Máy sưởi (Heater):
+    * Bật khi nhiệt độ < 35°C 
+    * Tắt khi nhiệt độ >= 35°C
+  + Máy tạo ẩm (Humidifier):
+    * Bật khi độ ẩm < 70%
+    * Tắt khi độ ẩm >= 70%
+  + Ngưỡng có thể điều chỉnh qua MQTT hoặc web interface
+  + Trạng thái hoạt động được cập nhật liên tục
+
+3. Chuyển Đổi Giữa Các Chế Độ
+- Thực hiện qua:
+  + Nút nhấn vật lý trên thiết bị
+  + Lệnh MQTT từ xa
+  + Web interface
+- Xử lý chuyển đổi:
+  + Lưu trạng thái chế độ hiện tại
+  + Reset trạng thái các thiết bị khi chuyển chế độ
+  + Cập nhật hiển thị và thông báo qua MQTT
+  + Áp dụng logic điều khiển tương ứng
