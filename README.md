@@ -31,6 +31,7 @@ A comprehensive IoT system for monitoring and controlling environmental conditio
   - OLED display for local monitoring
   - Relay modules for device control
   - Power supply unit
+  - Raspberry Pi 4 (server)
 
 ## System Architecture
 
@@ -44,7 +45,7 @@ A comprehensive IoT system for monitoring and controlling environmental conditio
    - WebSocket for web interface updates
    - WiFi connectivity with fallback AP mode
 
-3. **Backend Services**
+3. **Backend Services (Raspberry Pi 4)**
    - Node-RED for MQTT message handling
    - MySQL database (via phpMyAdmin)
    - Apache web server
@@ -59,7 +60,7 @@ A comprehensive IoT system for monitoring and controlling environmental conditio
 
 ### Hardware Setup
 
-1. Connect the sensors:
+1. Connect the sensors to ESP32:
    - BMP280: I2C connection (Address: 0x77)
    - AHT20: I2C connection
    - OLED Display: I2C connection (Address: 0x3C)
@@ -73,9 +74,63 @@ A comprehensive IoT system for monitoring and controlling environmental conditio
    - Device 1 button: GPIO 26
    - Device 2 button: GPIO 27
 
-### Software Installation
+### Raspberry Pi 4 Setup
 
-1. **ESP32 Setup**
+1. **Install Required Software**
+   ```bash
+   # Update system
+   sudo apt update
+   sudo apt upgrade
+
+   # Install Apache
+   sudo apt install apache2
+   sudo systemctl enable apache2
+   
+   # Install MySQL and phpMyAdmin
+   sudo apt install mariadb-server php php-mysql phpmyadmin
+   
+   # Install Node-RED
+   bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
+   sudo systemctl enable nodered.service
+   ```
+
+2. **Configure Apache and phpMyAdmin**
+   ```bash
+   # Enable PHP in Apache
+   sudo a2enmod php
+   
+   # Configure phpMyAdmin
+   sudo ln -s /usr/share/phpmyadmin /var/www/html/
+   sudo systemctl restart apache2
+   ```
+
+3. **Database Setup**
+   ```bash
+   # Access MySQL
+   sudo mysql -u root
+
+   # Create database and user
+   CREATE DATABASE environment_data;
+   CREATE USER 'pi'@'localhost' IDENTIFIED BY 'your_password';
+   GRANT ALL PRIVILEGES ON environment_data.* TO 'pi'@'localhost';
+   FLUSH PRIVILEGES;
+   EXIT;
+
+   # Import database schema
+   cd /path/to/project
+   mysql -u pi -p environment_data < database/environment_data.sql
+   ```
+
+4. **Web Interface Setup**
+   ```bash
+   # Copy web files
+   sudo cp -r Done_project/web/* /var/www/html/
+   sudo chown -R www-data:www-data /var/www/html/
+   ```
+
+### ESP32 Setup
+
+1. **Install Arduino Libraries**
    ```bash
    # Open Arduino IDE
    # Install required libraries:
@@ -90,58 +145,46 @@ A comprehensive IoT system for monitoring and controlling environmental conditio
    # Flash the ESP32 with DACNIII.ino
    ```
 
+## Running the Project
+
+1. **Start Raspberry Pi Services**
+   ```bash
+   # Check service status
+   sudo systemctl status apache2
+   sudo systemctl status mariadb
+   sudo systemctl status nodered
+
+   # Start services if not running
+   sudo systemctl start apache2
+   sudo systemctl start mariadb
+   sudo systemctl start nodered
+   ```
+
 2. **Node-RED Setup**
    ```bash
-   # Install Node-RED
-   npm install -g node-red
-
-   # Import the flows.json configuration from node_scrip folder
+   # Access Node-RED
+   http://<raspberry_pi_ip>:1880
+   
+   # Import flows.json from node_scrip folder
    # Configure MQTT broker settings
    ```
 
-3. **XAMPP Setup**
-   ```bash
-   # Install XAMPP (Apache + MySQL + phpMyAdmin)
-   1. Download XAMPP from https://www.apachefriends.org/
-   2. Install XAMPP
-   3. Start Apache and MySQL services
-   
-   # Database Setup
-   1. Open phpMyAdmin (http://localhost/phpmyadmin)
-   2. Create new database 'environment_data'
-   3. Import database/environment_data.sql
-   
-   # Web Interface Setup
-   1. Copy Done_project/web folder to C:/xampp/htdocs/
-   2. Access web interface at http://localhost/web/
-   ```
-
-## Running the Project
-
-1. **Start Required Services**
-   ```bash
-   1. Start XAMPP Control Panel
-   2. Start Apache and MySQL services
-   3. Start Node-RED (run 'node-red' in terminal)
-   4. Import flows.json into Node-RED
-   ```
-
-2. **ESP32 Configuration**
+3. **ESP32 Configuration**
    - Power up the ESP32
    - Connect to ESP32_Config WiFi network (Password: 12345678)
    - Open http://192.168.4.1
    - Configure:
      - WiFi credentials
-     - MQTT broker IP (your computer's IP)
+     - MQTT broker IP (Raspberry Pi IP)
 
-3. **Access Web Interface**
-   - Open http://localhost/web/
-   - Default database credentials:
-     - Username: root
-     - Password: 1
+4. **Access Web Interface**
+   - Open http://<raspberry_pi_ip>/web/
+   - Default database credentials in index.php:
+     - Username: pi
+     - Password: your_password
      - Database: environment_data
 
-4. **Verify System**
+5. **Verify System**
    - Check ESP32 connection status
    - Verify sensor readings
    - Test device controls
@@ -175,15 +218,15 @@ Done_project/
 
 ## Troubleshooting
 
-1. **XAMPP Issues**
-   - Verify Apache and MySQL are running
-   - Check port conflicts (default ports: Apache 80, MySQL 3306)
-   - Review XAMPP error logs
+1. **Raspberry Pi Services**
+   - Check service status: `sudo systemctl status <service_name>`
+   - View logs: `sudo journalctl -u <service_name>`
+   - Verify permissions: `ls -l /var/www/html/`
 
 2. **Database Connection**
-   - Verify MySQL service is running
-   - Check database credentials in index.php
-   - Confirm database and tables exist
+   - Test MySQL: `mysql -u pi -p`
+   - Check logs: `sudo tail -f /var/log/mysql/error.log`
+   - Verify database: `mysql -u pi -p -e "use environment_data; show tables;"`
 
 3. **ESP32 Connection**
    - Verify WiFi connectivity
@@ -197,26 +240,12 @@ Done_project/
 
 ## Author
 
-Created by [Your Name] - [Your Contact Information]
+Copyright (c) 2024 [Your Full Name]
 
 ## License
 
-Copyright (c) 2024 [Your Name]
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
