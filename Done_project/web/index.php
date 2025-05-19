@@ -428,7 +428,7 @@ $conn->close();
                             <button id="heaterBtn" onclick="toggleDevice('heater')" 
                                     data-state="OFF" class="control-btn">
                                 <i class="fas fa-fan me-2"></i>
-                                Quạt thông gió: TẮT
+                                Thiết bị 1: TẮT
                             </button>
                             <div class="timer-settings">
                                 <h6>Hẹn giờ</h6>
@@ -443,7 +443,7 @@ $conn->close();
                             <button id="humidifierBtn" onclick="toggleDevice('humidifier')" 
                                     data-state="OFF" class="control-btn">
                                 <i class="fas fa-cloud-rain me-2"></i>
-                                Phun sương: TẮT
+                                Thiết bị 2: TẮT
                             </button>
                             <div class="timer-settings">
                                 <h6>Hẹn giờ</h6>
@@ -870,11 +870,11 @@ if (!$initial_data) {
                     icon = 'fa-sync-alt';
                     break;
                 case 'heater':
-                    label = 'Quạt thông gió';
+                    label = 'Thiết bị 1';
                     icon = 'fa-fan';
                     break;
                 case 'humidifier':
-                    label = 'Phun sương';
+                    label = 'Thiết bị 2';
                     icon = 'fa-cloud-rain';
                     break;
             }
