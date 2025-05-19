@@ -52,6 +52,7 @@ IoT-Environmental-Control-System/
 └── README.md
 ```
 ![Project Image](https://raw.githubusercontent.com/thaivanhoa37/IoT-Environmental-Control-System-with-BMP280-AHT20-Sensors/refs/heads/main/Freertos%2Bimage/webserver%20(3).png)
+
 ## Running Instructions
 
 1. **Prerequisites Install**
@@ -131,7 +132,7 @@ IoT-Environmental-Control-System/
    - Mode Button: GPIO 25
    - Device 1 Button: GPIO 26
    - Device 2 Button: GPIO 27
-
+![Project Image](https://raw.githubusercontent.com/thaivanhoa37/IoT-Environmental-Control-System-with-BMP280-AHT20-Sensors/refs/heads/main/Freertos%2Bimage/sp%20(1).jpg)
 ## Libraries Required
 
 - Adafruit_GFX
