@@ -22,7 +22,6 @@ const char* TOPIC_STATE_DEVICE1 = "esp32/heater/state";
 const char* TOPIC_STATE_DEVICE2 = "esp32/humidifier/state";
 const char* TOPIC_STATE_TEMP_THRESHOLD = "esp32/threshold/temperature";
 const char* TOPIC_STATE_HUMI_THRESHOLD = "esp32/threshold/humidity";
-
 const char* TOPIC_CONTROL_MODE = "esp32/mode/set";
 const char* TOPIC_CONTROL_DEVICE1 = "esp32/heater/set";
 const char* TOPIC_CONTROL_DEVICE2 = "esp32/humidifier/set";
@@ -62,7 +61,7 @@ AsyncWebServer server(80);
 // WiFi and MQTT Configuration
 char ssid[32] = "vanhoa";
 char password[32] = "11111111";
-char mqtt_server[32] = "192.168.137.241";
+char mqtt_server[32] = "192.168.137.127";
 const int mqtt_port = 1883;
 const char* mqtt_client_id = "ESP32_IOT_Controller";
 
